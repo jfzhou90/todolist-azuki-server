@@ -20,8 +20,6 @@ Object.keys(db).forEach((modelName) => {
   }
 });
 
-// db.User.create({ name: 'Joey' });
-
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
+  const Task = sequelize.define('Task', {
     id: {
       allowNull: false,
       primaryKey: true,
@@ -13,20 +13,22 @@ export default (sequelize, DataTypes) => {
         notEmpty: true,
       },
     },
-    email: {
+    description: {
       type: DataTypes.STRING,
+      defaultValue: '',
     },
-    googleId: {
-      type: DataTypes.STRING,
+    dueDate: {
+      type: DataTypes.DATE,
     },
-    img: {
-      type: DataTypes.STRING,
+    isCompleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    order: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
   });
 
-  User.associate = (models) => {
-    models.User.hasMany(models.List, { as: 'list', onDelete: 'CASCADE' });
-  };
-
-  return User;
+  return Task;
 };

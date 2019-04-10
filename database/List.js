@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
+  const List = sequelize.define('List', {
     id: {
       allowNull: false,
       primaryKey: true,
@@ -13,20 +13,15 @@ export default (sequelize, DataTypes) => {
         notEmpty: true,
       },
     },
-    email: {
-      type: DataTypes.STRING,
-    },
-    googleId: {
-      type: DataTypes.STRING,
-    },
-    img: {
-      type: DataTypes.STRING,
+    order: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
   });
 
-  User.associate = (models) => {
-    models.User.hasMany(models.List, { as: 'list', onDelete: 'CASCADE' });
+  List.associate = (models) => {
+    models.List.hasMany(models.Todo, { as: 'todos', onDelete: 'cascade' });
   };
 
-  return User;
+  return List;
 };
