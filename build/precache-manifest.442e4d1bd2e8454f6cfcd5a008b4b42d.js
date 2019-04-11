@@ -1,23 +1,23 @@
 self.__precacheManifest = [
   {
-    "revision": "2d85ba8447dc965d3589",
-    "url": "/static/css/main.9d3918d0.chunk.css"
+    "revision": "37405f4ff7930bf37a17",
+    "url": "/static/css/main.5afbdf85.chunk.css"
   },
   {
-    "revision": "2d85ba8447dc965d3589",
-    "url": "/static/js/main.40f2ded7.chunk.js"
+    "revision": "37405f4ff7930bf37a17",
+    "url": "/static/js/main.60fad774.chunk.js"
   },
   {
     "revision": "42ac5946195a7306e2a5",
     "url": "/static/js/runtime~main.a8a9905a.js"
   },
   {
-    "revision": "47ecfe750ef0868da22b",
+    "revision": "faf8f285f0183cf8ee6b",
     "url": "/static/css/2.8ea8d928.chunk.css"
   },
   {
-    "revision": "47ecfe750ef0868da22b",
-    "url": "/static/js/2.838d0c57.chunk.js"
+    "revision": "faf8f285f0183cf8ee6b",
+    "url": "/static/js/2.abece1e4.chunk.js"
   },
   {
     "revision": "2ff32ac4c27f06fa7f69f47e41016093",
@@ -28,7 +28,7 @@ self.__precacheManifest = [
     "url": "/static/media/coffee-background.64f7fa74.jpg"
   },
   {
-    "revision": "d890d1c660bfb70cd9044de11f04700a",
+    "revision": "2bd1f6661bd4386cf73afe638105fd64",
     "url": "/index.html"
   }
 ];

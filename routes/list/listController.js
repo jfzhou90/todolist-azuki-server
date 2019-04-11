@@ -1,18 +1,5 @@
 import Model from '../../database';
 
-export const getTodosByListId = id => Model.List.findOne({
-  where: {
-    id,
-  },
-  include: [
-    {
-      model: Model.Todo,
-      as: 'todos',
-      attributes: { exclude: ['ListId', 'createdAt', 'updatedAt'] },
-    },
-  ],
-});
-
 export const deleteListById = (id, UserId) => Model.List.destroy({
   where: {
     id,

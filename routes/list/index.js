@@ -1,21 +1,11 @@
 import express from 'express';
 import {
-  getTodosByListId,
-  deleteListById,
-  createNewList,
-  updateListOrder,
-  updateListFields,
+  deleteListById, createNewList, updateListOrder, updateListFields,
 } from './listController';
 
 const router = express.Router();
 
 // Routes
-router.get('/:id', (request, response) => {
-  getTodosByListId(request.params.id).then((data) => {
-    response.send(data.todos);
-  });
-});
-
 router.delete('/:id', (request, response) => {
   deleteListById(request.params.id, request.user.id).then((data) => {
     if (data) {
