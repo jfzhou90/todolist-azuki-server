@@ -26,7 +26,7 @@ router.get('/logout', requireLogin, (request, response) => {
   response.redirect('/');
 });
 
-router.get('/currentUser', requireLogin, (req, res) => {
+router.get('/currentUserAndList', requireLogin, (req, res) => {
   res.send(req.user);
 });
 

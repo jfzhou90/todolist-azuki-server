@@ -26,9 +26,10 @@ routes(app);
 
 // Uncomment below to Seed Database First
 db.sequelize
-  .sync({ force: true })
+  .sync()
+  // .sync({ force: true })
   .then(() => {
-    seed.insert();
+    // seed.insert();
   })
   .then(() => {
     app.listen(PORT, () => {

@@ -1,6 +1,11 @@
 import express from 'express';
-import { getTodosByListId, deleteListById, createNewList } from './listController';
-import { getUserAndList as getListByUserId } from '../auth/authController';
+import {
+  getTodosByListId,
+  deleteListById,
+  createNewList,
+  updateListOrder,
+  updateListFields,
+} from './listController';
 
 const router = express.Router();
 
@@ -11,24 +16,27 @@ router.get('/:id', (request, response) => {
   });
 });
 
-router.post('/fetchListByUserId', (request, response) => {
-  getListByUserId(request.body.userId).then((data) => {
-    response.send(data.list);
-  });
-});
-
 router.delete('/:id', (request, response) => {
-  deleteListById(request.params.id).then((status) => {
-    if (status) {
-      response.send({ STATUS: 'List successfully Deleted' });
+  deleteListById(request.params.id, request.user.id).then((data) => {
+    if (data) {
+      response.send(data.list);
     } else {
-      response.status(400).send({ ERROR: 'List not found' });
+      response.redirect(404, '/404');
     }
   });
 });
 
 router.post('/createList', (request, response) => {
-  createNewList(request.body).then(data => response.send(data));
+  const data = { UserId: request.user.id, name: request.body.name };
+  createNewList(data).then(list => response.send(list));
+});
+
+router.post('/reorderList', (request, response) => {
+  updateListOrder(request.user.id, request.body).then(data => response.send(data.list));
+});
+
+router.put('/updateListFields', (request, response) => {
+  updateListFields(request.user.id, request.body).then(data => response.send(data.list));
 });
 
 export default router;
