@@ -57,11 +57,11 @@ export const updateListOrder = (id, lists) => Model.User.findOne({
   ],
 })
   .then((data) => {
-    lists.forEach((incomingList) => {
+    lists.forEach((incomingList, index) => {
       data.list.forEach((outgoingList) => {
-        if (incomingList.id === outgoingList.id && incomingList.order !== outgoingList.order) {
+        if (incomingList === outgoingList.id && index !== outgoingList.order) {
           outgoingList.update({
-            order: incomingList.order,
+            order: index,
           });
         }
       });
