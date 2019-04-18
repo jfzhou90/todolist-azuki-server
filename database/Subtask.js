@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  const Todo = sequelize.define('Todo', {
+  const Subtask = sequelize.define('Subtask', {
     id: {
       allowNull: false,
       primaryKey: true,
@@ -14,7 +14,7 @@ export default (sequelize, DataTypes) => {
       },
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       defaultValue: '',
     },
     dueDate: {
@@ -30,9 +30,5 @@ export default (sequelize, DataTypes) => {
     },
   });
 
-  Todo.associate = (models) => {
-    models.Todo.hasMany(models.Task, { as: 'tasks', onDelete: 'CASCADE' });
-  };
-
-  return Todo;
+  return Subtask;
 };

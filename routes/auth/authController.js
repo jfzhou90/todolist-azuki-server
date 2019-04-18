@@ -15,7 +15,7 @@ export const getUserAndList = id => Model.User.findOne({
   include: [
     {
       model: Model.List,
-      as: 'list',
+      as: 'lists',
       attributes: { exclude: ['UserId', 'createdAt', 'updatedAt'] },
     },
   ],

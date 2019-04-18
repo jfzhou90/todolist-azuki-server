@@ -11,7 +11,7 @@ export const deleteListById = (id, UserId) => Model.List.destroy({
   include: [
     {
       model: Model.List,
-      as: 'list',
+      as: 'lists',
       attributes: { exclude: ['ListId', 'createdAt', 'updatedAt'] },
     },
   ],
@@ -38,7 +38,7 @@ export const updateListFields = (id, listData) => Model.List.findOne({
     include: [
       {
         model: Model.List,
-        as: 'list',
+        as: 'lists',
         attributes: { exclude: ['ListId', 'createdAt', 'updatedAt'] },
       },
     ],
@@ -51,7 +51,7 @@ export const updateListOrder = (id, lists) => Model.User.findOne({
   include: [
     {
       model: Model.List,
-      as: 'list',
+      as: 'lists',
       attributes: { exclude: ['UserId', 'createdAt', 'updatedAt'] },
     },
   ],
@@ -74,8 +74,35 @@ export const updateListOrder = (id, lists) => Model.User.findOne({
     include: [
       {
         model: Model.List,
-        as: 'list',
+        as: 'lists',
         attributes: { exclude: ['UserId', 'createdAt', 'updatedAt'] },
       },
     ],
   }));
+
+export const clearCompletedTasks = (UserId, { ListId }) => Model.Task.destroy({
+  where: {
+    UserId,
+    ListId,
+    isCompleted: true,
+  },
+}).then(() => Model.List.findOne({
+  where: {
+    id: ListId,
+    UserId,
+  },
+  include: [
+    {
+      model: Model.Task,
+      as: 'tasks',
+      attributes: { exclude: ['UserId', 'ListId', 'createdAt', 'updatedAt'] },
+      include: [
+        {
+          model: Model.Subtask,
+          as: 'subtasks',
+          attributes: { exclude: ['UserId', 'TaskId', 'createdAt', 'updatedAt'] },
+        },
+      ],
+    },
+  ],
+}));

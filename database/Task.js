@@ -14,7 +14,7 @@ export default (sequelize, DataTypes) => {
       },
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       defaultValue: '',
     },
     dueDate: {
@@ -29,6 +29,10 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
+
+  Task.associate = (models) => {
+    models.Task.hasMany(models.Subtask, { as: 'subtasks', onDelete: 'CASCADE' });
+  };
 
   return Task;
 };

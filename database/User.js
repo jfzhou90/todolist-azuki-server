@@ -25,9 +25,9 @@ export default (sequelize, DataTypes) => {
   });
 
   User.associate = (models) => {
-    models.User.hasMany(models.List, { as: 'list', onDelete: 'CASCADE' });
-    models.User.hasMany(models.Todo, { as: 'todo', onDelete: 'CASCADE' });
-    models.User.hasMany(models.Task, { as: 'task', onDelete: 'CASCADE' });
+    models.User.hasMany(models.List, { as: 'lists', onDelete: 'CASCADE' });
+    models.User.hasMany(models.Task, { as: 'tasks', onDelete: 'CASCADE' });
+    models.User.hasMany(models.Subtask, { as: 'subtasks', onDelete: 'CASCADE' });
   };
 
   return User;

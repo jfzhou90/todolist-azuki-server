@@ -20,7 +20,7 @@ export default (sequelize, DataTypes) => {
   });
 
   List.associate = (models) => {
-    models.List.hasMany(models.Todo, { as: 'todos', onDelete: 'cascade' });
+    models.List.hasMany(models.Task, { as: 'tasks', onDelete: 'cascade' });
   };
 
   return List;
