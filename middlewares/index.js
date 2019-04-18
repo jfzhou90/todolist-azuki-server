@@ -4,7 +4,7 @@ import cors from 'cors';
 import passport from 'passport';
 import keys from '../config/keys';
 
-export default (app) => {
+export default (app, io) => {
   app.use(cors());
   app.use(
     cookieSession({
@@ -16,4 +16,8 @@ export default (app) => {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(passport.initialize());
   app.use(passport.session());
+  app.use((req, res, next) => {
+    req.io = io;
+    next();
+  });
 };
