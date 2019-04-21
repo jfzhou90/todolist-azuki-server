@@ -1,5 +1,11 @@
 import express from 'express';
-import { addSubtask, updateSubtask, deleteSubtask } from './subtaskController';
+import {
+  addSubtask,
+  updateSubtask,
+  deleteSubtask,
+  reorderSubtask,
+  toggleSubtask,
+} from './subtaskController';
 
 const router = express.Router();
 
@@ -16,6 +22,17 @@ router.put('/update', (request, response) => {
 router.delete('/', (request, response) => {
   const { id, name } = request.body;
   deleteSubtask(request.user.id, id, name).then(() => response.send({ STATUS: 'OK' }));
+});
+
+router.put('/reorder', (request, response) => {
+  reorderSubtask(request.user.id, request.body.subtaskArray);
+  response.send({ STATUS: 'OK' });
+});
+
+router.put('/toggle', (request, response) => {
+  const { id, isCompleted } = request.body;
+  toggleSubtask(request.user.id, id, isCompleted);
+  response.send({ STATUS: 'OK' });
 });
 
 export default router;

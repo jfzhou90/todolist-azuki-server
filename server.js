@@ -31,21 +31,21 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-// Uncomment below to Seed Database First
-db.sequelize
-  .sync()
-  // .sync({ force: true })
-  .then(() => {
-    // seed.insert();
-  })
-  .then(() => {
-    server.listen(PORT, () => {
-      // eslint-disable-next-line no-console
-      console.log(`Server running on port ${PORT}`);
-    });
-  });
+// // Uncomment below to Seed Database First
+// db.sequelize
+//   .sync()
+//   // .sync({ force: true })
+//   .then(() => {
+//     // seed.insert();
+//   })
+//   .then(() => {
+//     server.listen(PORT, () => {
+//       // eslint-disable-next-line no-console
+//       console.log(`Server running on port ${PORT}`);
+//     });
+//   });
 
-// db.sequelize.sync().then(() => {
-//   // eslint-disable-next-line no-console
-//   server.listen(PORT, () => console.log(`Server is running on port ${PORT}.`));
-// });
+db.sequelize.sync().then(() => {
+  // eslint-disable-next-line no-console
+  server.listen(PORT, () => console.log(`Server is running on port ${PORT}.`));
+});

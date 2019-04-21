@@ -24,3 +24,22 @@ export const deleteSubtask = (UserId, id) => Model.Subtask.destroy({
     UserId,
   },
 });
+
+// eslint-disable-next-line max-len
+export const reorderSubtask = (UserId, newOrder) => newOrder.forEach((subtask, index) => Model.Subtask.findOne({
+  where: {
+    id: subtask,
+    UserId,
+  },
+}).then((oldTask) => {
+  oldTask.update({ order: index });
+}));
+
+export const toggleSubtask = (UserId, id, isCompleted) => Model.Subtask.findOne({
+  where: {
+    id,
+    UserId,
+  },
+}).then((oldTask) => {
+  oldTask.update({ isCompleted });
+});
