@@ -28,7 +28,7 @@ router.post('/createList', (request, response) => {
 });
 
 router.post('/reorderList', (request, response) => {
-  updateListOrder(request.user.id, request.body).then(data => response.send(data.list));
+  updateListOrder(request.user.id, request.body).then(() => response.send({ STATUS: 'OK' }));
 });
 
 router.put('/updateListFields', (request, response) => {

@@ -9,7 +9,7 @@ export const getTasksByListId = (UserId, id) => Model.List.findOne({
     {
       model: Model.Task,
       as: 'tasks',
-      attributes: { exclude: ['UserId', 'ListId', 'createdAt', 'updatedAt'] },
+      attributes: { exclude: ['UserId', 'createdAt', 'updatedAt'] },
       include: [
         {
           model: Model.Subtask,
@@ -21,17 +21,35 @@ export const getTasksByListId = (UserId, id) => Model.List.findOne({
   ],
 });
 
+export const getTaskByTaskId = (UserId, id) => Model.Task.findOne({
+  where: {
+    id,
+    UserId,
+  },
+  include: [
+    {
+      model: Model.Subtask,
+      as: 'subtasks',
+      attributes: { exclude: ['UserId', 'createdAt', 'updatedAt'] },
+    },
+  ],
+}).catch((error) => {
+  // eslint-disable-next-line no-console
+  console.error(error);
+  return [];
+});
+
 export const toggleTaskComplete = (UserId, id, isCompleted) => Model.Task.findOne({
   where: {
     id,
     UserId,
   },
-  attributes: { exclude: ['updatedAt', 'createdAt', 'ListId'] },
+  attributes: { exclude: ['updatedAt', 'createdAt'] },
   include: [
     {
       model: Model.Subtask,
       as: 'subtasks',
-      attributes: { exclude: ['UserId', 'TodoId', 'createdAt', 'updatedAt'] },
+      attributes: { exclude: ['UserId', 'TaskId', 'createdAt', 'updatedAt'] },
     },
   ],
 }).then(data => data.update({ isCompleted }));
@@ -64,3 +82,10 @@ export const reorderTasks = (UserId, TaskArray) => TaskArray.forEach((id, index)
     },
   },
 ));
+
+export const updateTaskTitle = (UserId, id, name) => Model.Task.findOne({
+  where: {
+    id,
+    UserId,
+  },
+}).then(task => task.update({ name }));

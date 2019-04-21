@@ -12,7 +12,7 @@ export const deleteListById = (id, UserId) => Model.List.destroy({
     {
       model: Model.List,
       as: 'lists',
-      attributes: { exclude: ['ListId', 'createdAt', 'updatedAt'] },
+      attributes: { exclude: ['UserId', 'createdAt', 'updatedAt'] },
     },
   ],
 }));
@@ -39,12 +39,12 @@ export const updateListFields = (id, listData) => Model.List.findOne({
       {
         model: Model.List,
         as: 'lists',
-        attributes: { exclude: ['ListId', 'createdAt', 'updatedAt'] },
+        attributes: { exclude: ['UserId', 'createdAt', 'updatedAt'] },
       },
     ],
   }));
 
-export const updateListOrder = (id, lists) => Model.User.findOne({
+export const updateListOrder = (id, newList) => Model.User.findOne({
   where: {
     id,
   },
@@ -55,30 +55,17 @@ export const updateListOrder = (id, lists) => Model.User.findOne({
       attributes: { exclude: ['UserId', 'createdAt', 'updatedAt'] },
     },
   ],
-})
-  .then((data) => {
-    lists.forEach((incomingList, index) => {
-      data.list.forEach((outgoingList) => {
-        if (incomingList === outgoingList.id && index !== outgoingList.order) {
-          outgoingList.update({
-            order: index,
-          });
-        }
-      });
+}).then((data) => {
+  newList.forEach((incomingList, index) => {
+    data.lists.forEach((outgoingList) => {
+      if (incomingList === outgoingList.id && index !== outgoingList.order) {
+        outgoingList.update({
+          order: index,
+        });
+      }
     });
-  })
-  .then(() => Model.User.findOne({
-    where: {
-      id,
-    },
-    include: [
-      {
-        model: Model.List,
-        as: 'lists',
-        attributes: { exclude: ['UserId', 'createdAt', 'updatedAt'] },
-      },
-    ],
-  }));
+  });
+});
 
 export const clearCompletedTasks = (UserId, { ListId }) => Model.Task.destroy({
   where: {
@@ -95,7 +82,7 @@ export const clearCompletedTasks = (UserId, { ListId }) => Model.Task.destroy({
     {
       model: Model.Task,
       as: 'tasks',
-      attributes: { exclude: ['UserId', 'ListId', 'createdAt', 'updatedAt'] },
+      attributes: { exclude: ['UserId', 'createdAt', 'updatedAt'] },
       include: [
         {
           model: Model.Subtask,
