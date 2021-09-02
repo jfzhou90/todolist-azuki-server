@@ -5,7 +5,12 @@ import keys from '../config/keys';
 
 const db = {};
 const basename = path.basename(module.filename);
-const sequelize = new Sequelize(keys.db, { logging: false });
+const sequelize = new Sequelize(keys.db, {
+  logging: false,
+  dialectOptions: {
+    ssl: true,
+  },
+});
 
 fs.readdirSync(__dirname)
   .filter(file => file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js')
